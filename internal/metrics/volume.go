@@ -1,4 +1,7 @@
-package observe
+// Метрика 4 "Volume"
+// Объем торгов - сколько всего USDC прошло через пул за период (и покупки, и продажи, без учета знака)
+
+package metrics
 
 import "math/big"
 

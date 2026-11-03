@@ -1,4 +1,4 @@
-package observe
+package metrics
 
 import (
 	"math/big"

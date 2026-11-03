@@ -1,4 +1,7 @@
-package observe
+// Метрики 5, 7, 8: число обменов, объем покупок ETH и объем продаж ETH
+// Покупка ETH - это когда USDC вошли в пул (amount0 > 0), продажа - когда вышли (amount0 < 0)
+
+package metrics
 
 import "math/big"
 
@@ -29,11 +32,4 @@ func BuySellUSDC(amount0List []*big.Int) Flow {
 		SellUSDC: toUSDC(&sell),
 		Count:    len(amount0List),
 	}
-}
-
-func AvgSwapUSDC(volume float64, count int) float64 {
-	if count == 0 {
-		return 0
-	}
-	return volume / float64(count)
 }
