@@ -11,6 +11,9 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
+// pc.mevblocker.io — адрес публичного бесплатного узла Ethereum mainnet
+// от сервиса MEV Blocker
+// через него сервис задает все вопросы блокчейну
 const rpcURL = "https://rpc.mevblocker.io"
 
 // Connect открывает соединение с узлом Ethereum

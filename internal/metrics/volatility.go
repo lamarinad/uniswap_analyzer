@@ -7,7 +7,7 @@ package metrics
 
 import "math"
 
-// hoursPerYear нужен, чтобы перевести часовую волатильность в годовую (так её принято сравнивать)
+// hoursPerYear нужен, чтобы перевести часовую волатильность в годовую (так ее принято сравнивать)
 const hoursPerYear = 24 * 365
 
 // StepLogReturns возвращает логарифмическую доходность каждого шага: prices[i-1] -> prices[i]
@@ -22,7 +22,7 @@ func StepLogReturns(prices []float64) []float64 {
 	return out
 }
 
-// RealizedVol = sqrt(сумма квадратов доходностей) за всё окно
+// RealizedVol = sqrt(сумма квадратов доходностей) за все окно
 func RealizedVol(returns []float64) float64 {
 	var sum float64
 	for _, r := range returns {
