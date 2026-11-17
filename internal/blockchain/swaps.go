@@ -40,6 +40,7 @@ var swapTopic = crypto.Keccak256Hash([]byte(
 // Swap - один обмен в пуле
 type Swap struct {
 	Block        uint64
+	TxIndex      uint        // место транзакции в блоке: 0 - первая, дальше по порядку
 	TxHash       common.Hash // номер транзакции, в которой был обмен (в одной транзакции может быть несколько обменов)
 	Amount0      *big.Int    // USDC: >0 вошло в пул (купили ETH), <0 вышло (продали ETH)
 	Amount1      *big.Int    // WETH: >0 вошло в пул (продали ETH), <0 вышло (купили ETH)
@@ -69,6 +70,7 @@ func FetchSwaps(ctx context.Context, client *ethclient.Client, pool common.Addre
 			}
 			swaps = append(swaps, Swap{
 				Block:        lg.BlockNumber,
+				TxIndex:      lg.TxIndex,
 				TxHash:       lg.TxHash,
 				Amount0:      ev[0].(*big.Int),
 				Amount1:      ev[1].(*big.Int),

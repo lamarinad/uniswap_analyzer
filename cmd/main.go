@@ -352,6 +352,28 @@ func main() {
 		fmt.Printf("19. Arbitrage volume: %.2f USDC (%d сделок; %.1f%% всего объема; к цене %s, расхождение до сделки больше комиссии пула)\n",
 			arb.VolumeUSDC, arb.Count, arb.Share*100, src)
 	}
+	// выводим 20 пункт
+	if sendersErr != nil {
+		fmt.Printf("20. MEV activity: не удалось узнать отправителей транзакций — %v\n", sendersErr)
+	} else {
+		senderByTx := make(map[common.Hash]common.Address, len(txHashes))
+		for i, h := range txHashes {
+			senderByTx[h] = txSenders[i]
+		}
+		mevSwaps := make([]metrics.MEVSwap, 0, len(swaps))
+		for _, s := range swaps {
+			mevSwaps = append(mevSwaps, metrics.MEVSwap{
+				Block: s.Block, TxIndex: s.TxIndex, TxHash: s.TxHash, From: senderByTx[s.TxHash], Amount0: s.Amount0,
+			})
+		}
+		mev := metrics.MEVActivity(mevSwaps)
+		if mev.Sandwiches == 0 {
+			fmt.Println("20. MEV activity: сэндвичей 0")
+		} else {
+			fmt.Printf("20. MEV activity: сэндвичей %d (объем ботов %.2f USDC, объем жертв %.2f USDC)\n",
+				mev.Sandwiches, mev.BotUSDC, mev.VictimUSDC)
+		}
+	}
 }
 
 // impactQuote - ответы Quoter для одного размера сделки (пункт 14)

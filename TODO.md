@@ -102,6 +102,10 @@
 
 20. MEV activity
 - активность ботов, зарабатывающих на порядке транзакций в блоке
+- Сэндвич, если в одном блоке у одного и того же from есть сделка, потом хотя бы одна сделка другого адреса в ту же сторону, и следом снова этот from, но в обратную сторону
+- `internal/metrics/mev_activity.go` (MEVActivity),
+    порядок сделок в блоке - `internal/blockchain/swaps.go` (FetchSwaps, поле TxIndex),
+    отправитель транзакции - `internal/blockchain/transactions.go` (TxSenders)
 
 Для V3/V4 добавить:
 21. Active liquidity
